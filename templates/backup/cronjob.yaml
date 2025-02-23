@@ -98,7 +98,7 @@ spec:
               {{- end }}
             {{- if .Values.backup.s3.enabled }}
             args: 
-              - {{ printf "\"%s\"" (.Values.backup.s3.dumpContainer.args | join " && ") }}
+              - {{ .Values.backup.s3.dumpContainer.args | join " && " | quote }}
             {{- end }}
             volumeMounts:
               - name: empty-dir
@@ -131,7 +131,7 @@ spec:
                 command: {{- include "common.tplvalues.render" (dict "value" .Values.backup.s3.uploadContainer.startupProbe.command "context" $) | nindent 18 }}
             command: {{- include "common.tplvalues.render" (dict "value" .Values.backup.s3.uploadContainer.command "context" $) | nindent 14 }}
             args: 
-              - {{ printf "\"%s\"" (.Values.backup.s3.uploadContainer.args | join " && ") }}
+              - {{ .Values.backup.s3.uploadContainer.args | join " && " | quote }}
             env:
               - name: MINIO_SVC_NAME
                 value: {{ .Values.backup.s3.serviceName }}
