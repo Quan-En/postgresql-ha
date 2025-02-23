@@ -94,6 +94,13 @@ Return the proper PostgreSQL Prometheus exporter image name
 {{- end -}}
 
 {{/*
+Return the proper minio/mc image name
+*/}}
+{{- define "postgresql-ha.miniomc.image" -}}
+{{- include "common.images.image" ( dict "imageRoot" .Values.backup.s3.uploadContainer.image "global" .Values.global ) -}}
+{{- end -}}
+
+{{/*
 Return the proper Docker Image Registry Secret Names
 */}}
 {{- define "postgresql-ha.image.pullSecrets" -}}

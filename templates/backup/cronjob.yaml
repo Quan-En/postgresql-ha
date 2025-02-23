@@ -124,7 +124,7 @@ spec:
             {{- end }}            
           {{- if .Values.backup.s3.enabled }}
           - name: {{ include "postgresql-ha.postgresql" . }}-s3-upload
-            image: {{ include "postgresql-ha.postgresql.image" . }}
+            image: {{ include "postgresql-ha.miniomc.image" . }}
             imagePullPolicy: {{ .Values.postgresql.image.pullPolicy | quote }}
             startupProbe:
               exec:

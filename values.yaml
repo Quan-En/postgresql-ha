@@ -2312,6 +2312,11 @@ backup:
         - "pg_dumpall --clean --if-exists --load-via-partition-root --quote-all-identifiers --no-password --file=$FILEPATH"
         - "echo $FILEPATH > /tmp/done"
     uploadContainer:
+      image:
+        registry: docker.io
+        repository: minio/mc
+        tag: RELEASE.2025-02-15T10-36-16Z
+        digest: ""
       command:
         - /bin/sh
         - -c
