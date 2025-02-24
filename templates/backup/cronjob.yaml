@@ -147,10 +147,9 @@ spec:
                     name: {{ include "postgresql-ha.postgresqlSecretName" . }}
                     key: minio_access_key
               - name: MINIO_SECRET_KEY
-                valueFrom:
-                  secretKeyRef:
-                    name: {{ include "postgresql-ha.postgresqlSecretName" . }}
-                    key: minio_secret_key
+                value: {{ .Values.backup.s3.minioSecretKey }}
+              - name: MC_CONFIG_DIR
+                value: /mc-config
             {{- if or .Values.backup.cronjob.extraEnvVarsCM .Values.backup.cronjob.extraEnvVarsSecret }}
             envFrom:
               {{- if .Values.backup.cronjob.extraEnvVarsCM }}
@@ -166,6 +165,8 @@ spec:
               - name: empty-dir
                 mountPath: /tmp
                 subPath: tmp-dir
+              - name: mc-config
+                mountPath: /mc-config
               {{- if .Values.postgresql.tls.enabled }}
               - name: certs
                 mountPath: /certs
@@ -190,6 +191,8 @@ spec:
           {{- end }}
           volumes:
             - name: empty-dir
+              emptyDir: {}
+            - name: mc-config
               emptyDir: {}
             {{- if .Values.backup.cronjob.storage.existingClaim }}
             - name: datadir
