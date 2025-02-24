@@ -2309,7 +2309,7 @@ backup:
         - -c
       args:
         - "TIMESTAMP=$(date '+%Y-%m-%d-%H-%M')"
-        - "FILEPATH='${PGDUMP_DIR}/pg_dumpall-${TIMESTAMP}.pgdump'"
+        - "FILEPATH=${PGDUMP_DIR}/pg_dumpall-${TIMESTAMP}.pgdump"
         - "pg_dumpall --clean --if-exists --load-via-partition-root --quote-all-identifiers --no-password --file=$FILEPATH"
         - "echo $FILEPATH > /tmp/done"
     uploadContainer:
@@ -2323,8 +2323,8 @@ backup:
         - -c
       args:
         - "FILE_PATH=$(cat /tmp/done)"
-        - "mc alias set myminio 'http://${MINIO_SVC_NAME}.${MINIO_NAMESPACE}.svc.cluster.local:${MINIO_PORT}' $MINIO_ACCESS_KEY $MINIO_SECRET_KEY"
-        - "mc cp $FILE_PATH 'myminio/${MINIO_BUCKET}/'"
+        - "mc alias set myminio http://${MINIO_SVC_NAME}.${MINIO_NAMESPACE}.svc.cluster.local:${MINIO_PORT} $MINIO_ACCESS_KEY $MINIO_SECRET_KEY"
+        - "mc cp $FILE_PATH myminio/${MINIO_BUCKET}/"
       startupProbe:
         command:
           - test

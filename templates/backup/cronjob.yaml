@@ -136,7 +136,7 @@ spec:
               - name: MINIO_SVC_NAME
                 value: {{ .Values.backup.s3.serviceName }}
               - name: MINIO_PORT
-                value: {{ .Values.backup.s3.servicePort }}
+                value: {{ .Values.backup.s3.servicePort | quote }}
               - name: MINIO_NAMESPACE
                 value: {{ .Values.backup.s3.serviceNamespace }}
               - name: MINIO_BUCKET
