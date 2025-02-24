@@ -140,12 +140,9 @@ spec:
               - name: MINIO_NAMESPACE
                 value: {{ .Values.backup.s3.serviceNamespace }}
               - name: MINIO_BUCKET
-                value: "main"
+                value: {{ .Values.backup.s3.bucketName }}
               - name: MINIO_ACCESS_KEY
-                valueFrom:
-                  secretKeyRef:
-                    name: {{ include "postgresql-ha.postgresqlSecretName" . }}
-                    key: minio_access_key
+                value: {{ .Values.backup.s3.minioAccessKey }}
               - name: MINIO_SECRET_KEY
                 value: {{ .Values.backup.s3.minioSecretKey }}
               - name: MC_CONFIG_DIR
