@@ -1,4 +1,28 @@
+postgresql:
+  replicaCount: 2
+  username: postgres
+  password: fdcrpa
+  database: fdc
+  repmgrUsername: repmgr
+  repmgrPassword: fdcrpa
+  repmgrDatabase: repmgr
+pgpool:
+  customUsers:
+    usernames: postgres
+    passwords: fdcrpa
+persistence:
+  size: 1Gi
 backup:
   enabled: true
+  cronjob:
+    schedule: "*/5 * * * *"
+    storage:
+      size: 1Gi
   s3:
     enabled: true
+    serviceName: my-minio
+    servicePort: 9000
+    serviceNamespace: default
+    bucketName: main
+    minioAccessKey: admin
+    minioSecretKey: fdcrpafdcrpa
