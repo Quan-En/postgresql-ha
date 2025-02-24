@@ -2295,6 +2295,7 @@ backup:
     serviceName: my-minio
     servicePort: 9000
     serviceNamespace: default
+    bucketName: main
     resources:
       requests:
         cpu: "500m"
